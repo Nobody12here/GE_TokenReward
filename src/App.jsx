@@ -13,6 +13,7 @@ import { useMediaQuery, useTheme } from '@mui/material';
 import CoinImage from './assets/coin.png'
 import './App.css'
 
+
 function App() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
