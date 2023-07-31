@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
-const useStyles = makeStyles((theme) => ({
-  footer: {
+
+const footer= {
     backgroundColor: '#000',
     color: '#fff',
-    padding: theme.spacing(2),
+    padding: 20,
     textAlign: 'center',
     position: 'sticky',
     bottom: 0,
@@ -14,11 +13,10 @@ const useStyles = makeStyles((theme) => ({
     right: 0,
     transform: 'translateY(100%)', // Move the footer below the screen by default
     transition: 'transform 0.3s', // Add a transition effect for a smoother appearance
-  },
-}));
+  }
+
 
 const Footer = () => {
-  const classes = useStyles();
   const [showFooter, setShowFooter] = useState(false);
 
   useEffect(() => {
@@ -47,11 +45,11 @@ const Footer = () => {
   return (
     // Use the showFooter state variable to conditionally render the footer
     showFooter && (
-      <footer className={classes.footer}>
+      <div style={footer}>
         <Typography variant="body1" align="center">
           &copy; {new Date().getFullYear()} Decentralized Green Energy Token
         </Typography>
-      </footer>
+      </div>
     )
   );
 };
