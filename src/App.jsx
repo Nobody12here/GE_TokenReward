@@ -74,7 +74,7 @@ function App() {
             )
 
           );
-          setTime(1691132621)
+          setTime(1691220835)
           setTotalRewards(totalRewards.toFixed(2));
           fetchSortedHolderList();
 
