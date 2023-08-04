@@ -23,7 +23,7 @@ const TokenHolderCard = ({ tokens, totalRewards, unclaimedRewards, tokensPrice }
     >
       <CardContent>
         <div style={{ textAlign: 'center' }}>
-          <h3>Top 5 Holders</h3>
+          <h3>Top 5 Stakers of GE Token</h3>
         </div>
         <div>
           {fetchSortedHolderList().map((holder, index) => {
