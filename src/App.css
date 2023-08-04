@@ -1,3 +1,4 @@
+
 .bold-and-3d {
   font-weight: bold; /* Makes the font appear bold */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9); /* Adds a subtle 3D effect with a shadow */
@@ -20,18 +21,42 @@
   margin-top: 2.5em;
   margin-bottom: 2.5em;
 }
-.mobileImage{
-  width: 60%;
-  height: 150px;
-
+.globe{
+  width: 200px;
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  margin: auto;
+  animation: spin 10s linear infinite;
 }
-.desktopImage{
-  width: 40%;
-  height: 150px;
+.hands{
+  width: 300px;
+  height: auto;
+}
+.mobile-globe{
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+.desktop-globe{
+ position: relative;
+ width: 40%;
+ height: 100%;
+ text-align: center;
+ 
 }
 .particle-container {
   position: relative; /* Required to position the children inside this container */
   z-index: -1; /* Make sure the particle component is behind other elements */
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 

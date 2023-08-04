@@ -1,24 +1,29 @@
 import file from "./data/file.json";
-export function checkIfAddressIsPresent(web3, address) {
-	console.log(address);
+export async function checkIfAddressIsPresent(web3, address, stakingContract) {
+	
 	if (address !== undefined) {
-		for (var i = 0; i < file.length; i++) {
-			if (web3.utils.toChecksumAddress(file[i].HolderAddress) === address) {
-				console.log("address is present");
-				return true;
-			}
+		const StakedTokens = await stakingContract.methods.GETTotalStakedGE(address).call()
+		if(StakedTokens != 0){
+			 //this means that the user has staked some tokens so it's a staker
+			 alert("User is a staker")
+			 console.log("The address is a staker",address)
+			return true;
 		}
 	}
 	console.log("address is not present");
+	alert("User is not a stakeholder");
 	return false;
 }
 export async function transferAndConvertTokens(
 	web3,
 	address,
 	contract,
-	rewardAmount
+	rewardAmount,
+	stakingContract
 ) {
-	if (checkIfAddressIsPresent(web3, address)) {
+
+	if (await checkIfAddressIsPresent(web3, address,stakingContract)) {
+
 		await contract.methods
 			.convertTokens((rewardAmount * 10 ** 18).toString())
 			.send({ from: address });
@@ -31,10 +36,11 @@ export async function calculateRewardOfAddress(
 	address,
 	tokenContract,
 	contract,
-	setRewardAmount
+	setRewardAmount,
+	stakingContract
 ) {
 	var reward = 0;
-	if (checkIfAddressIsPresent(web3, address)) {
+	if (checkIfAddressIsPresent(web3, address, stakingContract)) {
 		if (!(await contract.methods.hasAlreadyClaimed(address).call())) {
 			const totalSupply = await tokenContract.methods.totalSupply().call();
 			const userBalance = await tokenContract.methods.balanceOf(address).call();

@@ -1,8 +1,10 @@
+
 *{
   font-family: 'Poppins', sans-serif;
 }
 body {
   margin: 0; 
-  
+  background-image: url('https://gecoin.ai/assets/img/hero-bg-v2.jpg');
+  background-size: cover;
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -19,7 +19,7 @@ import "./header.css";
 // Import your logo image
 import LogoImage from "../assets/logo.png";
 
-const CustomAppBar = () => {
+const CustomAppBar = ({isMetamaskConnected}) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const { connectMetamask, connectTrustWallet } = useWeb3();
@@ -27,7 +27,7 @@ const CustomAppBar = () => {
   // State to handle the mobile menu
   const [menuAnchorEl, setMenuAnchorEl] = useState(null);
   const isMenuOpen = Boolean(menuAnchorEl);
-
+ 
   const handleMenuOpen = (event) => {
     setMenuAnchorEl(event.currentTarget);
   };
@@ -35,7 +35,8 @@ const CustomAppBar = () => {
   const handleMenuClose = () => {
     setMenuAnchorEl(null);
   };
-
+  
+  console.log("isMetamaskConnected",isMetamaskConnected)
   return (
     <AppBar
       position="static"
@@ -80,15 +81,7 @@ const CustomAppBar = () => {
                     connectMetamask();
                   }}
                 >
-                  MetaMask
-                </MenuItem>
-                <MenuItem
-                  onClick={() => {
-                    handleMenuClose();
-                    connectTrustWallet();
-                  }}
-                >
-                  TrustWallet
+                  Connect Wallet
                 </MenuItem>
               </Menu>
             </div>
@@ -117,26 +110,27 @@ const CustomAppBar = () => {
                     backgroundColor: "green",
                   },
                   marginRight: "8px",
+                  textAlign: "right",
                 }}
               >
-                MetaMask
+                <span
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    right: "5px", // Adjust the right position of the circle indicator
+                    transform: "translateY(-50%)",
+                    //paddingRight: "8px",
+                    width: "8px",
+                    height: "8px",
+                    borderRadius: "50%",
+                    backgroundColor: isMetamaskConnected
+                      ? "green"
+                      : "orange",
+                  }}
+                ></span>
+                {isMetamaskConnected ? "Wallet Connected" : "Connect Wallet"}
               </Button>
-              <Button
-                color="inherit"
-                sx={{
-                  "&:hover": {
-                    border: "2px solid black",
-                    backgroundColor: "green",
-                  },
-                  marginRight: "8px",
-                }}
-                className="button"
-                onClick={connectTrustWallet}
-                variant="outlined"
-                
-              >
-                TrustWallet
-              </Button>
+
               {/* Twitter icon and link */}
               <IconButton
                 color="inherit"

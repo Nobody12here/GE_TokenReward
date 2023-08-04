@@ -9,7 +9,7 @@ const StatCard = ({ tokens, totalRewards, unclaimedRewards,tokensPrice }) => {
   const cardWidth = isMobile ? '70%' : '50%';
 
   return (
-    <Card variant="outlined" style={{ width: cardWidth,margin:'auto',marginTop:'1.5em',marginBottom:'1.5em', backgroundColor: 'rgba(0,0,0,0.5)', color: 'white' }}>
+    <Card variant="outlined" style={{ width: cardWidth,margin:'auto',height:'100%',marginTop:'1.5em',marginBottom:'1.5em', backgroundColor: 'rgba(0,0,0,0.5)', color: 'white' }}>
       <CardContent>
         <div style={{display: 'flex', justifyContent: 'space-between',fontSize:'12px'}}>
           <div>
@@ -19,7 +19,7 @@ const StatCard = ({ tokens, totalRewards, unclaimedRewards,tokensPrice }) => {
           </div>
           <div>
           <h3>{tokens} GE ({(tokensPrice*tokens).toFixed(2)}$)</h3>
-          <p>{totalRewards} GE ({(tokensPrice*totalRewards).toFixed(2)}$)</p>
+          <p>{totalRewards} BTT ({(tokensPrice*totalRewards).toFixed(2)}$)</p>
           <p>{unclaimedRewards}</p>
           </div>
         </div>

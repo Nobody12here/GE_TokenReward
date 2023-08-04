@@ -30,7 +30,8 @@ const claimButtonStyle = {
   width: '100%',
 };
 
-const RewardClaimCard = ({web3,address,contract,rewardAmount}) => {
+const RewardClaimCard = ({web3,address,contract,rewardAmount,stakingContract}) => {
+  console.log(stakingContract,"stakingContract")
 	const theme = useTheme();
   	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   	const cardWidth = isMobile ? '70%' : '50%';
@@ -58,7 +59,7 @@ function handleClick(){
   console.log("called click")
   if(claimWay!== ''){
     if(claimWay === 'fee_reward'){
-      transferAndConvertTokens(web3,address,contract,rewardAmount);
+      transferAndConvertTokens(web3,address,contract,rewardAmount,stakingContract);
     }else if(claimWay === 'stake_reward'){
       console.log("stake rewards")
     }
