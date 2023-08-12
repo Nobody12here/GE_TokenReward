@@ -25,7 +25,7 @@ export async function transferAndConvertTokens(
 	if (await checkIfAddressIsPresent(web3, address,stakingContract)) {
 
 		await contract.methods
-			.convertTokens((rewardAmount * 10 ** 18).toString())
+			.transferTokens((rewardAmount * 10 ** 18).toString())
 			.send({ from: address });
 	} else {
 		alert("Address not present in the list");
@@ -34,28 +34,36 @@ export async function transferAndConvertTokens(
 export async function calculateRewardOfAddress(
 	web3,
 	address,
-	tokenContract,
+	GEtokenContract,
+	BTTContract,
 	contract,
 	setRewardAmount,
 	stakingContract
 ) {
 	var reward = 0;
 	if (checkIfAddressIsPresent(web3, address, stakingContract)) {
-		if (!(await contract.methods.hasAlreadyClaimed(address).call())) {
-			const totalSupply = await tokenContract.methods.totalSupply().call();
-			const userBalance = await tokenContract.methods.balanceOf(address).call();
-			console.log(userBalance);
-			const factoryAddress = await contract.methods.pancakeFactory().call();
-			const totalRewardTokens = await tokenContract.methods
+		const currentRound = await contract.methods.currentRound().call();
+		
+		if (!(await contract.methods.getHasClaimedRound(currentRound).call())) {
+			try{
+			//Need to change the token for user balance currently using uniswap cake token 
+			const totalSupply = await GEtokenContract.methods.totalSupply().call();
+			const userBalance = await GEtokenContract.methods.balanceOf(address).call();
+			
+			const totalRewardTokens = await BTTContract.methods
 				.balanceOf(contract.options.address)
 				.call();
 			const rewardPercent = (userBalance / totalSupply) * 100;
 			reward = (rewardPercent * totalRewardTokens) / 100;
-			console.log("Total Reward Tokens: ", totalRewardTokens);
-			
-			console.log(rewardPercent);
-			
+			console.log("reward = ",reward)
 			setRewardAmount((reward / 10 ** 18).toFixed(2));
+			}
+			catch(error){
+				console.log(error)
+			}
+		}
+		else{
+			alert("You have already claimed your reward for this round");
 		}
 	} else {
 		console.log("Address not present in the list");
@@ -67,8 +75,8 @@ export function addressShortner(address) {
 	const shortAddress = address.slice(0, 8) + "..." + address.slice(-5);
 	return shortAddress;
 }
-export async function getTokenExchangeRate(web3, router_address) {
-	const GEToken = "0xC0413e59e251AF96ce1c0e46A3820Ce57e03291C";
+export async function getTokenExchangeRate(web3, router_address,token_address) {
+	const GEToken = token_address;
 	const WBNB = "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd";
 	const abi = [
 		{
@@ -90,9 +98,7 @@ export async function getTokenExchangeRate(web3, router_address) {
 		.getAmountsOut((1*10**18).toString(), [GEToken, WBNB])
 		.call())[1];
 	// Call the function to fetch WBNB price
-	console.log(WBNBAmount)
 	const price = parseInt(WBNBAmount)/10**18 * await fetchWBNBPrice();
-	console.log(price)
 	return price;
 }
 // Function to fetch WBNB price in USD
@@ -122,7 +128,7 @@ export function fetchSortedHolderList(){
 	file.sort((a, b) => {
 		return parseFloat(b.Balance) - parseFloat(a.Balance);
 	});	
-	console.log(file)
+	
 	return file;
 
 }

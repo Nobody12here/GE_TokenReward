@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
 const Timer = ({ endTime }) => {
-	console.log(endTime)
   const [remainingTime, setRemainingTime] = useState(0);
   
   useEffect(() => {

@@ -36,7 +36,7 @@ const CustomAppBar = ({isMetamaskConnected}) => {
     setMenuAnchorEl(null);
   };
   
-  console.log("isMetamaskConnected",isMetamaskConnected)
+  
   return (
     <AppBar
       position="static"
