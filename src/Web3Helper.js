@@ -1,4 +1,4 @@
-import file from "./data/file.json";
+
 export async function checkIfAddressIsPresent(web3, address, stakingContract) {
 	
 	if (address !== undefined) {
@@ -6,12 +6,10 @@ export async function checkIfAddressIsPresent(web3, address, stakingContract) {
 		if(StakedTokens != 0){
 			 //this means that the user has staked some tokens so it's a staker
 			 alert("User is a staker")
-			 console.log("The address is a staker",address)
+			
 			return true;
 		}
 	}
-	console.log("address is not present");
-	alert("User is not a stakeholder");
 	return false;
 }
 export async function transferAndConvertTokens(
@@ -28,7 +26,7 @@ export async function transferAndConvertTokens(
 			.transferTokens((rewardAmount * 10 ** 18).toString())
 			.send({ from: address });
 	} else {
-		alert("Address not present in the list");
+		alert("User is not a stake holder");
 	}
 }
 export async function calculateRewardOfAddress(
@@ -77,7 +75,7 @@ export function addressShortner(address) {
 }
 export async function getTokenExchangeRate(web3, router_address,token_address) {
 	const GEToken = token_address;
-	const WBNB = "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd";
+	
 	const abi = [
 		{
 			name: "getAmountsOut",
@@ -91,9 +89,25 @@ export async function getTokenExchangeRate(web3, router_address,token_address) {
 			],
 			outputs: [{ name: "amounts", type: "uint256[]" }],
 		},
+		{
+			"inputs":[
+			   
+			],
+			"name":"WETH",
+			"outputs":[
+			   {
+				  "internalType":"address",
+				  "name":"",
+				  "type":"address"
+			   }
+			],
+			"stateMutability":"view",
+			"type":"function"
+		 },
 	];
-	const dexRouter = new web3.eth.Contract(abi, router_address);
-	console.log("dex router",dexRouter)
+	const dexRouter =await new web3.eth.Contract(abi, router_address);
+	await console.log(dexRouter)
+	const WBNB = await dexRouter.methods.WETH().call(); //Need to change this
 	const WBNBAmount = (await dexRouter.methods
 		.getAmountsOut((1*10**18).toString(), [GEToken, WBNB])
 		.call())[1];
@@ -124,13 +138,6 @@ async function fetchWBNBPrice() {
     return null;
   }
 }
-export function fetchSortedHolderList(){
-	file.sort((a, b) => {
-		return parseFloat(b.Balance) - parseFloat(a.Balance);
-	});	
-	
-	return file;
 
-}
 
 

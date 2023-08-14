@@ -11,11 +11,11 @@ export function Web3Provider({ children }) {
       const web3 = new Web3(window.ethereum);
       try {
         const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-        if(chainId !== '0x61'){
+        if(chainId !== '0x38'){
           try{
             await window.ethereum.request({
               method: 'wallet_switchEthereumChain',
-              params: [{ chainId: '0x61' }],
+              params: [{ chainId: '0x38' }],
             })}
           catch(error){
             console.log("Error in switching to Binance Smart Chain",error)

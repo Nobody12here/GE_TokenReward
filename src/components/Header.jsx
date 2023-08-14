@@ -135,7 +135,7 @@ const CustomAppBar = ({isMetamaskConnected}) => {
               <IconButton
                 color="inherit"
                 component="a"
-                href="https://twitter.com/your_twitter_handle"
+                href="https://twitter.com/Gecoinbiz"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -145,7 +145,7 @@ const CustomAppBar = ({isMetamaskConnected}) => {
               <IconButton
                 color="inherit"
                 component="a"
-                href="https://t.me/your_telegram_channel"
+                href="https://t.me/gecoinbiz"
                 target="_blank"
                 rel="noopener noreferrer"
               >

@@ -2,17 +2,14 @@ import { useState, useEffect } from "react";
 import { useWeb3 } from "./components/connetWallet";
 import StatCard from "./components/StatCard";
 import CustomAppBar from "./components/Header";
-import ParticleComponent from "./components/ParticleComponent";
 import RewardClaimCard from "./components/RewardClaimCard";
 import Footer from "./components/Footer";
-import TokenHolderCard from "./components/TokenHolderCard";
 import erc20ABI from "./contracts/erc20.json";
 import rewardABI from "./contracts/reward.json";
 import stakingABI from "./contracts/stakingABI.json";
 import {
   calculateRewardOfAddress,
   getTokenExchangeRate,
-  fetchSortedHolderList,
 } from "./Web3Helper.js";
 import { useMediaQuery, useTheme } from "@mui/material";
 import { Timer } from "./components/timer";
@@ -24,6 +21,7 @@ import {
   BIT_TORRENT_TOKEN_ADDRESS,
   STAKING_ADDRESS,
   REWARD_CONTRACT_ADDRESS,
+  PANCAKE_ROUTER_V2
 } from "./constants";
 
 function App() {
@@ -40,7 +38,7 @@ function App() {
   const [totalRewards, setTotalRewards] = useState(0);
   const [unclaimedRewards, setUnclaimedRewards] = useState(0);
   const [GETokensPrice, setGETokensPrice] = useState(0);
-  const [BitTorrentPrice,setBitTorrentTokensPrice] = useState(0);
+  const [BitTorrentPrice, setBitTorrentTokensPrice] = useState(0);
   const [isMetamaskConnected, setIsMetamaskConnected] = useState(false);
   const [time, setTime] = useState(0);
   //Load the token contract and the reward smart contract when web3 is loaded
@@ -55,17 +53,17 @@ function App() {
             erc20ABI,
             GE_TOKEN_ADDRESS,
           );
-          
+
           const RewardContract = await new web3.eth.Contract(
             rewardABI,
             REWARD_CONTRACT_ADDRESS,
           );
-          
+
           const stakingContract = await new web3.eth.Contract(
             stakingABI,
             STAKING_ADDRESS,
           );
-          
+
           const tokens =
             (await tokenContract.methods.balanceOf(walletAddress[0]).call()) /
             10 ** 18;
@@ -79,7 +77,7 @@ function App() {
               .balanceOf(REWARD_CONTRACT_ADDRESS)
               .call()) /
             10 ** 18;
-        
+
           setTokenContract(tokenContract);
           setStakingContract(stakingContract);
           setContract(RewardContract);
@@ -89,21 +87,21 @@ function App() {
           setGETokensPrice(
             await getTokenExchangeRate(
               web3,
-              "0xd99d1c33f9fc3444f8101754abc46c52416550d1", //pancake routerv2 address
+              PANCAKE_ROUTER_V2, //pancake routerv2 address
               GE_TOKEN_ADDRESS, //GE TEST Token
             ),
           );
           setBitTorrentTokensPrice(
             await getTokenExchangeRate(
               web3,
-              "0xd99d1c33f9fc3444f8101754abc46c52416550d1", //pancake routerv2 address
+              PANCAKE_ROUTER_V2, //pancake routerv2 address
               BIT_TORRENT_TOKEN_ADDRESS, //GE TEST Token
             ),
           );
           const time = await RewardContract.methods.claimDeadline().call();
           setTime(time);
           setTotalRewards(totalRewards.toFixed(2));
-          fetchSortedHolderList();
+          
 
           calculateRewardOfAddress(
             web3,
@@ -164,7 +162,7 @@ function App() {
         rewardAmount={unclaimedRewards}
         stakingContract={stakingContract}
       />
-      
+
 
       <Footer />
     </>
