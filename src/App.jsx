@@ -13,8 +13,6 @@ import {
 } from "./Web3Helper.js";
 import { useMediaQuery, useTheme } from "@mui/material";
 import { Timer } from "./components/timer";
-import HandsImage from "./assets/hands.png";
-import globeImage from "./assets/globe-1.png";
 import "./App.css";
 import {
   GE_TOKEN_ADDRESS,
@@ -98,8 +96,8 @@ function App() {
               BIT_TORRENT_TOKEN_ADDRESS, //GE TEST Token
             ),
           );
-          const time = await RewardContract.methods.claimDeadline().call();
-          setTime(time);
+          
+          setTime(1735364489);
           setTotalRewards(totalRewards.toFixed(2));
           
 
@@ -143,10 +141,10 @@ function App() {
       </div>*/}
 
       <div className={isMobile ? "div" : "div2"}>
-        <div className={isMobile ? "mobile-globe" : "desktop-globe"}>
-          <img src={HandsImage} className="hands" alt="hands" />
-          <img src={globeImage} className="globe" alt="globe" />
-        </div>
+        {/* <div className={isMobile ? "mobile-globe" : "desktop-globe"}>
+          <img src={sustaibability} className="hands" alt="hands" />
+          
+        </div> */}
         <StatCard
           tokens={tokens}
           GEtokensPrice={GETokensPrice}
