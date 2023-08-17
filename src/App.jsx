@@ -63,7 +63,7 @@ function App() {
           );
 
           const tokens =
-            (await tokenContract.methods.balanceOf(walletAddress[0]).call()) /
+            (await stakingContract.methods.GETTotalStakedGE(walletAddress[0]).call()) /
             10 ** 18;
           const BTTContract = await new web3.eth.Contract(
             erc20ABI,

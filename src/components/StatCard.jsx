@@ -14,7 +14,7 @@ const StatCard = ({ tokens, totalRewards, unclaimedRewards, GEtokensPrice, BTTPr
       <CardContent>
         <div style={{ display: 'flex', justifyContent: 'space-between', flexDirection: flexDirection, fontSize: '12px' }}>
           <div>
-            <h3>User Tokens:</h3>
+            <h3>Total Staked Tokens:</h3>
             <h3>Total Rewards:</h3>
             <h3>Unclaimed Rewards:</h3>
           </div>
