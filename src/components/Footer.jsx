@@ -27,7 +27,7 @@ const Footer = () => {
       const documentHeight = document.documentElement.scrollHeight;
 
       // Check if the user has scrolled near the bottom of the page
-      const scrollNearBottom = scrollY + windowHeight >= documentHeight - 150;
+      const scrollNearBottom = scrollY + windowHeight >= documentHeight - 250;
 
       // Show/hide the footer based on the scroll position
       setShowFooter(scrollNearBottom);

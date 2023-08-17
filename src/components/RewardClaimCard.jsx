@@ -99,7 +99,7 @@ const RewardClaimCard = ({ web3, address, contract, rewardAmount, stakingContrac
             )}
             <Select
               value={claimWay}
-              label="Select reward type"
+              
               onChange={handleChange}
               style={dropdownStyle}
               variant="filled"

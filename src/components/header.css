@@ -1,4 +1,8 @@
-.button: hover{
+.button:hover{
 	background-color:yellow ;
 	color: 'black';
 }
+.custom-menu-item {
+	background-color: green;
+	/* Add other styles as needed */
+  }
