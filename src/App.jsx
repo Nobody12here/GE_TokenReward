@@ -34,6 +34,7 @@ function App() {
   const [address, setAddress] = useState("");
   const [tokens, setTokens] = useState(0);
   const [totalRewards, setTotalRewards] = useState(0);
+  const [claimPercentage,setClaimPercentage] = useState(0);
   const [unclaimedRewards, setUnclaimedRewards] = useState(0);
   const [GETokensPrice, setGETokensPrice] = useState(0);
   const [BitTorrentPrice, setBitTorrentTokensPrice] = useState(0);
@@ -107,6 +108,7 @@ function App() {
             tokenContract,
             BTTContract,
             RewardContract,
+            setClaimPercentage,
             setUnclaimedRewards,
             stakingContract,
           );
@@ -151,6 +153,7 @@ function App() {
           BTTPrice={BitTorrentPrice}
           totalRewards={totalRewards}
           unclaimedRewards={unclaimedRewards}
+          claimPercentage={claimPercentage}
         />
       </div>
       <RewardClaimCard

@@ -35,6 +35,7 @@ export async function calculateRewardOfAddress(
 	GEtokenContract,
 	BTTContract,
 	contract,
+	setClaimPercentage,
 	setRewardAmount,
 	stakingContract
 ) {
@@ -52,6 +53,7 @@ export async function calculateRewardOfAddress(
 				.balanceOf(contract.options.address)
 				.call();
 			const rewardPercent = (userBalance / totalSupply) * 100;
+			setClaimPercentage(rewardPercent);
 			console.log(rewardPercent);
 			reward = (rewardPercent * totalRewardTokens) / 100;
 			console.log("reward = ",reward)
