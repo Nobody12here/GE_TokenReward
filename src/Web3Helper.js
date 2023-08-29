@@ -42,13 +42,14 @@ export async function calculateRewardOfAddress(
 	var reward = 0;
 	if (checkIfAddressIsPresent(web3, address, stakingContract)) {
 		const currentRound = await contract.methods.currentRound().call();
+		const hasClaimed = await contract.methods.getHasClaimedRound(currentRound).call()
 		
-		if (!(await contract.methods.getHasClaimedRound(currentRound).call())) {
+		if (!hasClaimed) {
 			try{
 			//Need to change the token for user balance currently using uniswap cake token 
 			const totalSupply = await stakingContract.methods.totalStakesGE().call();
 			const userBalance = await stakingContract.methods.GETTotalStakedGE(address).call();
-			
+			console.log("Has claimed  = ",hasClaimed)
 			const totalRewardTokens = await BTTContract.methods
 				.balanceOf(contract.options.address)
 				.call();
