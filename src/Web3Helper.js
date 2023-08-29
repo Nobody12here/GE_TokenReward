@@ -23,7 +23,7 @@ export async function transferAndConvertTokens(
 	if (await checkIfAddressIsPresent(web3, address,stakingContract)) {
 
 		await contract.methods
-			.transferTokens((rewardAmount * 10 ** 18).toString())
+			.transferTokens(web3.utils.toWei(rewardAmount))
 			.send({ from: address });
 	} else {
 		alert("User is not a stake holder");
@@ -55,6 +55,7 @@ export async function calculateRewardOfAddress(
 			const rewardPercent = (userBalance / totalSupply) * 100;
 			setClaimPercentage(rewardPercent);
 			console.log(rewardPercent);
+
 			reward = (rewardPercent * totalRewardTokens) / 100;
 			console.log("reward = ",reward)
 			setRewardAmount((reward / 10 ** 18).toFixed(2));

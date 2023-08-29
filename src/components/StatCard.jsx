@@ -22,7 +22,7 @@ const StatCard = ({ tokens, totalRewards, unclaimedRewards, GEtokensPrice, BTTPr
           <div>
             <h3>{tokens} GE ({(GEtokensPrice * tokens).toFixed(6)}$)</h3>
             <h3>{totalRewards} BTT ({(BTTPrice * totalRewards).toFixed(6)}$)</h3>
-            <h3>{claimPercentage}%</h3>
+            <h3>{claimPercentage.toFixed(5)}%</h3>
             <h3>{unclaimedRewards}</h3>
           </div>
         </div>
