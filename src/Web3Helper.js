@@ -42,7 +42,7 @@ export async function calculateRewardOfAddress(
 	var reward = 0;
 	if (checkIfAddressIsPresent(web3, address, stakingContract)) {
 		const currentRound = await contract.methods.currentRound().call();
-		const hasClaimed = await contract.methods.getHasClaimedRound(currentRound).call()
+		const hasClaimed = await contract.methods.hasClaimedRound(currentRound,address).call()
 		
 		if (!hasClaimed) {
 			try{
