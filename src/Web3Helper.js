@@ -23,7 +23,7 @@ export async function transferAndConvertTokens(
 	if (await checkIfAddressIsPresent(web3, address,stakingContract)) {
 
 		await contract.methods
-			.transferTokens(web3.utils.toWei(rewardAmount))
+			.transferTokens()
 			.send({ from: address });
 	} else {
 		alert("User is not a stake holder");

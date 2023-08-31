@@ -11,7 +11,7 @@ export function Web3Provider({ children }) {
       const web3 = new Web3(window.ethereum);
       try {
         const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-        if(chainId !== '0x38'){
+        if(!chainId){
           try{
             await window.ethereum.request({
               method: 'wallet_switchEthereumChain',

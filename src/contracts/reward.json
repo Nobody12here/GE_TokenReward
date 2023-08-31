@@ -24,6 +24,25 @@
 		"type": "event"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_user",
+				"type": "address"
+			}
+		],
+		"name": "HasStakedTokens",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "claimExpiredRewards",
 		"outputs": [],
@@ -146,6 +165,19 @@
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "staking",
+		"outputs": [
+			{
+				"internalType": "contract GEStaking",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -159,13 +191,7 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "amount",
-				"type": "uint256"
-			}
-		],
+		"inputs": [],
 		"name": "transferTokens",
 		"outputs": [],
 		"stateMutability": "nonpayable",
